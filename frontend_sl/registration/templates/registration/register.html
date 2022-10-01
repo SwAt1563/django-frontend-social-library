@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+    <link href="{% static 'home/css/bootstrap.css' %}" rel="stylesheet" >
+    <link rel="stylesheet" href="{% static 'registration/css/register.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+
+</head>
+<body>
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-5">
+      <div class="card cardbox">
+        <h2><div class="card-header" style="text-align: center">Register</div></h2>
+        <div class="card-body">
+
+
+
+
+
+          <div class="form-group">
+
+            <form id="login-nav" action="" method="post" role="form" class="form" accept-charset="UTF-8">
+                {% csrf_token %}
+              <div class="form-group">
+                <label class="sr-only">Username</label>
+                  <h6>{{ register_form.errors.username }}</h6>
+                  {{ register_form.username }}
+              </div>
+
+              <br/>
+
+              <!-- password group -->
+              <div class="form-group">
+
+                <!-- password label -->
+                <label class="sr-only">Password</label>
+                <!-- password input -->
+                <div class="input-group">
+                    <h6>{{ register_form.errors.password }}</h6>
+                    {{ register_form.password }}
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-append1" onclick="togglePassword()">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- password progresbar -->
+                <div class="progress mt-1" id="reg-password-strength">
+                    <div id="password-strength" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                    </div>
+                  </div>
+                <!-- password remember & results -->
+                <div class="help-block text-right">
+
+                  <span id="reg-password-quality" class="hide pull-left block-help">
+                   <small>Password <span id="reg-password-quality-result"></span></small>
+                  </span>
+                </div>
+
+                <!-- Password Rules -->
+                <div id="reg_passwordrules" class="hide password-rule mt-2"><small>
+                    <br>
+                  <ul class="list-unstyled">
+                    <li class="">
+                      <span class="eight-character"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                      &nbsp; min 8 character</li>
+                    <li class="">
+                      <span class="low-upper-case"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                      &nbsp; min 1 uppercase & 1 lowercase character</li>
+                    <li class="">
+                      <span class="one-number"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                      &nbsp; min 1 number</li>
+                    <li class="">
+                      <span class="one-special-char"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                      &nbsp; min 1 special char (!@#$%^&*)</li>
+                  </ul>
+                  </small></div>
+
+              </div>
+
+                <br/>
+              <!-- password-confirm group -->
+              <div class="form-group">
+
+                <!-- password-confirm label -->
+                <label class="sr-only">Password Confirm</label>
+                <!-- password-confirm input -->
+                <div class="input-group">
+                    <h6>{{ register_form.errors.password2 }}</h6>
+                 {{ register_form.password2 }}
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-append2" onclick="togglePassword()">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                  </div>
+
+                </div>
+                <!-- password-confirm error message -->
+                <div class="help-block text-right">
+                  <small><span id="error-confirmpassword" class="hide pull-right block-help">
+                  <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>Don't match password'</span></small>
+                </div>
+
+              </div>
+                <br/>
+			  <!-- email group -->
+
+              <div class="form-group">
+                <label class="sr-only">E-mail Address</label>
+                  <h6>{{ register_form.errors.email }}</h6>
+                  {{ register_form.email }}
+              </div>
+
+                <br/>
+			  <!-- question group -->
+              <div class="form-group">
+                <label class="sr-only">Questions</label>
+                  <h6>{{ register_form.errors.question }}</h6>
+                  {{ register_form.question }}
+              </div>
+
+                <br/>
+			  <!-- answer group -->
+              <div class="form-group">
+                <label class="sr-only">Answer</label>
+                  <h6>{{ register_form.errors.answer }}</h6>
+                {{ register_form.answer }}
+              </div>
+
+                <br/>
+              <!-- Submit -->
+              <div class="form-group">
+                <button id="reg_submit" name="submit"  value="1" class="btn btn-block btn-primary" disabled="disabled">Create user</button>
+                <div id="sign-up-popover" class="hide"><p>is empty</p></div>
+              </div>
+
+
+
+            </form>
+          </div>
+
+          <div class="login-or"><hr class="hr-or"></div>
+		  <!-- Links -->
+          <div class="bottom text-center">
+            Are you user? <a href="{% url 'registration:login' %}"><b>Login</b></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script src="{% static 'home/js/bootstrap.js' %}" ></script>
+<script src="{% static 'home/js/jquery.js' %}"></script>
+<script src="{% static 'registration/js/register.js' %}" ></script>
+</body>
+</html>

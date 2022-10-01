@@ -6,7 +6,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', include('home.urls', namespace='home')),
     path('admin/', admin.site.urls),
+    path('au/', include('registration.urls', namespace='registration')),
 ]
 
 # for confirm the static paths
