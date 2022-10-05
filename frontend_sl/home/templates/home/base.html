@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'home/css/bootstrap.css' %}" rel="stylesheet" >
+    {% block css %}
+
+    {% endblock %}
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg" style="color: white">
+
+  <a class="navbar-brand" href="{% url 'home:index' %}">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'user_profile:profile' user_slug %}">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_profile:edit_profile' user_slug %}">Settings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'post:create_post' %}">Upload</a>
+      </li>
+
+        <li class="nav-item" >
+        <a class="nav-link" href="{% url 'registration:logout' %}" style="position: absolute; right: 0">Logout</a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+
+</header>
+
+{% block content %}
+
+{% endblock %}
+
+<div style="margin-top: 5%"></div>
+<footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2022 Copyright:
+    <a class="text-white alert-link text-decoration-none" href="https://mdbootstrap.com/">Qutaiba Olayyan</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+{% block js %}
+
+{% endblock %}
+<script src="{% static 'home/js/bootstrap.js' %}" ></script>
+<script src="{% static 'home/js/jquery.js' %}" ></script>
+
+</body>
+</html>

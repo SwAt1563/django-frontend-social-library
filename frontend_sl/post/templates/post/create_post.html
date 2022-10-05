@@ -1,0 +1,55 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}
+Create post
+{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block content %}
+<div class="container bootstrap snippets bootdey mt-5">
+    <section id="contact" class="gray-bg padding-top-bottom">
+
+    	<div class="container bootstrap snippets bootdey">
+
+            <div class="row">
+
+				<form id="Highlighted-form"  action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+					<div class="form-group">
+					 <div class="form-floating">
+                         {{ post_form.errors.title }}
+                        {{ post_form.title }}
+                      <label for="post_title">Title</label>
+                    </div>
+
+					</div><!-- End name input -->
+
+                    <div class="form-group">
+					 <div class="form-floating">
+                         {{ post_form.errors.description }}
+                        {{ post_form.description }}
+                        <label for="floatingTextarea2">Description</label>
+                    </div>
+
+					</div><!-- End name input -->
+
+                    <div class="form-group">
+                    {{ post_form.errors.uploaded_file }}
+                    {{ post_form.uploaded_file }}
+
+					</div><!-- End name input -->
+
+
+					<p><input  type="submit" class="btn btn-info btn-block w-100"  value="Post"></p>
+				</form><!-- End Highlighted-form -->
+			</div>
+		</div>
+	</section>
+    </div>
+{% endblock %}
+{% block js %}
+
+{% endblock %}

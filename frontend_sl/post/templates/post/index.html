@@ -1,0 +1,124 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}
+Post
+{% endblock %}
+{% block css %}
+<link href="{% static 'post/css/post.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+{% endblock %}
+{% block content %}
+<div class="container bootstrap snippets bootdey">
+    <di class="col-md-8">
+        <div class="col-sm-12">
+            <div class="panel panel-white post panel-shadow">
+                <div class="post-heading">
+                    <div class="pull-left image">
+                        <img src="https://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                    </div>
+                    <div class="pull-right meta">
+                        <div class="stats">
+                        <form action="" method="post" style="display: inline">
+                            1228
+                            {% csrf_token %}
+                            {{ star_form.star }}
+                        <button type="submit" class="btn btn-default stat-item" >
+                            <i class="fa fa-star icon"></i>
+                        </button>
+                        </form>
+
+                            <form action="" method="post" style="display: inline">
+                                {% csrf_token %}
+                                {{ star_form.unlike }}
+                            <button type="submit" class="btn btn-default stat-item" >
+                            <i class="fa fa-thumbs-down icon"></i>
+                            </button>
+
+                        </form>
+                            <!-- just for the post owner can see it -->
+                        <a class="btn btn-dark" href="{% url 'post:edit_post' post_slug %}">Edit</a>
+
+                    </div>
+
+                    </div>
+                    <div class="pull-left meta">
+                        <div class="title h5">
+                            <a href="#" class="text-decoration-none"><b>Brian cartelly</b></a>
+
+
+                        </div>
+                        <h6 class="text-muted time">Posted on 21/5/2020</h6>
+                    </div>
+                </div>
+                <div class="post-image">
+                    <img src="{% static 'home/img/file.png' %}" class="image" alt="image post">
+                </div>
+                <div class="post-description">
+                    <h4>File title</h4>
+                    <p>Put here your foto description Put here your foto descriptionPut here your foto description
+                        Put here your foto descriptionPut here your foto description
+                    </p>
+
+                </div>
+                <div class="post-footer">
+                    {{ comment_form.errors.comment }}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                    <div class="input-group">
+
+                        {{ comment_form.comment }}
+                        <span class="input-group-addon">
+                            <input type="submit" class="btn btn-success" value="Post">
+                        </span>
+
+                    </div>
+                    </form>
+
+                    <ul class="comments-list">
+                        <li class="comment">
+                            <a class="pull-left" href="#">
+                                <img class="avatar" src="https://bootdey.com/img/Content/user_3.jpg" alt="avatar">
+                            </a>
+                            <div class="comment-body">
+                                <div class="comment-heading">
+                                    <h4 class="user">Full name 1</h4>
+                                    <h5 class="time">21/5</h5>
+                                </div>
+                                <p>This is a comment bla bla bla</p>
+                            </div>
+                        </li>
+                        <li class="comment">
+                            <a class="pull-left" href="#">
+                                <img class="avatar" src="https://bootdey.com/img/Content/user_2.jpg" alt="avatar">
+                            </a>
+                            <div class="comment-body">
+                                <div class="comment-heading">
+                                    <h4 class="user">Full name 2</h4>
+                                    <h5 class="time">21/5</h5>
+                                </div>
+                                <p>This is another comment bla bla bla</p>
+                            </div>
+                        </li>
+                        <li class="comment">
+                            <a class="pull-left" href="#">
+                                <img class="avatar" src="https://bootdey.com/img/Content/user_3.jpg" alt="avatar">
+                            </a>
+                            <div class="comment-body">
+                                <div class="comment-heading">
+                                    <h4 class="user">Full name 1</h4>
+                                    <h5 class="time">21/5</h5>
+                                </div>
+                                <p>Wow! This is a comment</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </di>
+</div>
+{% endblock %}
+{% block js %}
+
+{% endblock %}

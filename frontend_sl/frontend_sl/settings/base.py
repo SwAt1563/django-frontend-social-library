@@ -27,6 +27,8 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'registration.apps.RegistrationConfig',
     'home.apps.HomeConfig',
+    'user_profile.apps.UserProfileConfig',
+    'post.apps.PostConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',

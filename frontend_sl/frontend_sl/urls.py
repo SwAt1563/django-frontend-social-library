@@ -9,6 +9,9 @@ urlpatterns = [
     path('', include('home.urls', namespace='home')),
     path('admin/', admin.site.urls),
     path('au/', include('registration.urls', namespace='registration')),
+    path('profile/', include('user_profile.urls', namespace='user_profile')),
+    path('post/', include('post.urls', namespace='post')),
+
 ]
 
 # for confirm the static paths

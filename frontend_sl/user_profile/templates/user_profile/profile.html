@@ -1,0 +1,206 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}
+Profile
+{% endblock %}
+{% block css %}
+    <link href="{% static 'user_profile/css/profile.css' %}" rel="stylesheet" >
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+{% endblock %}
+{% block content %}
+<section class="section about-section gray-bg" id="about">
+
+            <div class="container">
+
+                <!-- follow or unfollow -->
+                <div class="pull-right meta">
+                      <div class="d-flex justify-content-center">
+                      <a href="{% url 'user_profile:follow' related_user_slug=user_slug %}?next={{ request.path|urlencode }}" class="btn btn-success">Follow</a>
+                    </div>
+                  </div>
+
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-lg-6">
+                        <div class="about-text go-to">
+                            <h3 class="dark-color">Qutaiba Olayyan</h3>
+                            <h6 class="theme-color lead">Backend developer</h6>
+                            <p>I design and developservices for customers of all sizes, specializing in creating stylish, modern websites, web services and online stores. My passion is to design digital user experiences through the bold interface and meaningful interactions.</p>
+                            <div class="row about-list">
+                                <div class="col-md-6">
+                                    <div class="media">
+                                        <label>Address</label>
+                                        <p>Ramallh</p>
+                                    </div>
+                                    <div class="media">
+                                        <label>Age</label>
+                                        <p>22 Yr</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="media">
+                                        <label>E-mail</label>
+                                        <p>info@domain.com</p>
+                                    </div>
+                                    <div class="media">
+                                        <label>Phone</label>
+                                        <p>8208853321</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-avatar">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="counter">
+                    <div class="row">
+                        <div class="col-6 col-lg-3">
+                            <div class="count-data text-center">
+                                <h6 class="count h2" data-to="500" data-speed="500">500</h6>
+                                <p class="m-0px font-w-600">Stars</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="count-data text-center">
+                                <h6 class="count h2" data-to="150" data-speed="150">150</h6>
+                                <p class="m-0px font-w-600">Posts</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="count-data text-center">
+                                <h6 class="count h2" data-to="850" data-speed="850">850</h6>
+                                <p class="m-0px font-w-600">Followers</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="count-data text-center">
+                                <h6 class="count h2" data-to="190" data-speed="190">190</h6>
+                                <p class="m-0px font-w-600">Following</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    <div class="container bootstrap snippets bootdey">
+    <div class="row">
+        <h2 class="text-muted">Posts</h2>
+        <hr>
+    </div>
+    <div class="row">
+        <!-- posts -->
+    <div class="col-md-8">
+
+            <div class="panel blog-container">
+
+              <div class="panel-body">
+                <div class="image-wrapper">
+                  <a class="image-wrapper image-zoom cboxElement" href="#">
+                    <img src="{% static 'home/img/file.png' %}" alt="Photo of Blog">
+                    <div class="image-overlay"></div>
+                  </a>
+                </div>
+
+
+                <h4>Bootstrap 3.0</h4>
+                <small class="text-muted">By <a href="#"><strong> John Doe</strong></a> |  Post on Jan 8, 2013 </small>
+
+                <p class="m-top-sm m-bottom-sm">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
+                </p>
+                <a href="#"><i class="fa fa-angle-double-right"></i> Continue reading</a>
+                <span class="post-like text-muted tooltip-test" data-toggle="tooltip" data-original-title="I like this post!">
+                  <i class="fa fa-star"></i> <span class="like-count">25</span>
+                    <i class="fa fa-comment"></i> <span class="like-count">10</span>
+                </span>
+              </div>
+            </div>
+        <hr>
+            <div class="panel blog-container">
+              <div class="panel-body">
+                <div class="image-wrapper">
+                  <a class="image-wrapper image-zoom cboxElement" href="#">
+                    <img src="{% static 'home/img/file.png' %}" alt="Photo of Blog">
+                    <div class="image-overlay"></div>
+                  </a>
+                </div>
+
+                <h4>Bootstrap 3.0</h4>
+                <small class="text-muted">By <a href="#"><strong> John Doe</strong></a> |  Post on Jan 8, 2013 </small>
+
+                <p class="m-top-sm m-bottom-sm">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
+                </p>
+                <a href="#"><i class="fa fa-angle-double-right"></i> Continue reading</a>
+                <span class="post-like text-muted tooltip-test" data-toggle="tooltip" data-original-title="I like this post!">
+                  <i class="fa fa-star"></i> <span class="like-count">25</span>
+                    <i class="fa fa-comment"></i> <span class="like-count">10</span>
+                </span>
+              </div>
+            </div>
+    </div>
+
+
+        <div class="col-md-4">
+            <h4 class="headline text-muted">
+              Notifications
+              <span class="line"></span>
+            </h4>
+            <div class="media popular-post">
+              <a class="pull-left" href="#">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
+              </a>
+
+              <div class="media-body">
+                  <a href="#" class="alert-link text-decoration-none">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      </a>
+              </div>
+
+            </div>
+            <div class="media popular-post">
+              <a class="pull-left" href="#">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
+              </a>
+              <div class="media-body">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="media popular-post">
+              <a class="pull-left" href="#">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
+              </a>
+              <div class="media-body">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="media popular-post">
+              <a class="pull-left" href="#">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
+              </a>
+              <div class="media-body">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="media popular-post">
+              <a class="pull-left" href="#">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
+              </a>
+              <div class="media-body">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+        </div>
+  </div>
+</div>
+
+{% endblock %}
+
+

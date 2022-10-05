@@ -1,0 +1,128 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}
+Edit Profile
+{% endblock %}
+    {% block css %}
+        <link href="{% static 'user_profile/css/edit_profile.css' %}" rel="stylesheet" >
+
+    {% endblock %}
+{% block content %}
+
+<div class="container">
+<div class="row gutters">
+	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+		 <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+             {% csrf_token %}
+                    <div class="form-group avatar">
+                                <figure class="figure col-md-2 col-sm-3 col-xs-12">
+
+                                    <!-- user image -->
+                                    {% if user_profile_img %}
+                                    <img id="pimage" class="img-rounded img-responsive" src="{{ user_profile_img }}" alt="">
+
+                                    {% else %}
+                                   <img id="pimage" class="img-rounded img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                    {% endif %}
+
+                                </figure>
+                                <div class="form-inline col-md-10 col-sm-9 col-xs-12">
+                                    {{ image_form.errors.image }}
+                                    {{ image_form.image }}
+                                    <br/><br/>
+                                    <input type="submit" class="btn btn-primary" value="Update Image">
+                                </div>
+                            </div>
+                    </form>
+	</div>
+	<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+		<div class="card h-100">
+			<div class="card-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+
+
+				<div class="row gutters">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<h6 class="mb-3 text-primary">Personal Details</h6>
+					</div>
+
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+							<label for="firstname">First Name</label>
+                            {{ profile_form.errors.firstname }}
+							{{ profile_form.firstname }}
+						</div>
+					</div>
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+							<label for="lastname">Last Name</label>
+                            {{ profile_form.errors.lastname }}
+							{{ profile_form.lastname }}
+						</div>
+					</div>
+                    <br><br><br>
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+							<label for="phone">Phone</label>
+                            {{ profile_form.errors.phone }}
+							{{ profile_form.phone }}
+						</div>
+					</div>
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+							<label for="age">Age</label>
+                            {{ profile_form.errors.age }}
+							{{ profile_form.age }}
+						</div>
+					</div>
+				</div>
+                    <br>
+				<div class="row gutters">
+
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+							<label for="address">Address</label>
+                            {{ profile_form.errors.address }}
+							{{ profile_form.address }}
+						</div>
+					</div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+							<label for="status">Status</label>
+                            {{ profile_form.errors.status }}
+							{{ profile_form.status }}
+						</div>
+					</div>
+                        <br><br><br>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="form-group">
+							<label for="aboutme">About me</label>
+                            {{ profile_form.errors.about_me }}
+                            {{ profile_form.about_me }}
+						</div>
+					</div>
+
+				</div>
+                    <br>
+				<div class="row gutters">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<div class="text-right">
+							<input type="submit" name="submit" class="btn btn-primary" value="Update">
+							<a href="{% url 'user_profile:profile' user_slug %}" class="btn btn-secondary ">Cancel</a>
+						</div>
+					</div>
+
+
+				</div>
+                </form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{% static 'user_profile/js/edit_profile.js' %}"
+{% endblock %}
