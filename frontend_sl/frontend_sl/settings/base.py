@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'user_profile.apps.UserProfileConfig',
     'post.apps.PostConfig',
+    'admin_app.apps.AdminAppConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
