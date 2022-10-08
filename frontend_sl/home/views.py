@@ -41,7 +41,7 @@ class HomeView(ListView):
 class SearchListView(ListView):
     template_name = 'home/search.html'
     context_object_name = 'objects'
-    paginate_by = 4
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(SearchListView, self).get_context_data(**kwargs)
@@ -50,46 +50,40 @@ class SearchListView(ListView):
 
     def get(self, request, *args, **kwargs):
         # extra context that we can use it in template
-        print(self.request.GET)
-        self.extra_context = {
-            'people_form': PeopleSearchForm,
-            'post_form': PostSearchForm,
-        }
-        return super(SearchListView, self).get(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        people_form = PeopleSearchForm(request.POST)
-        post_form = PostSearchForm(request.POST)
+        people_form = PeopleSearchForm(request.GET)
+        post_form = PostSearchForm(request.GET)
 
         if people_form.is_valid():
 
             self.extra_context = {'people_form': people_form,
-                                  'post_form': PostSearchForm}
+                                  'post_form': PostSearchForm,
+                                  'people_search': people_form.cleaned_data['people_search']
+                                  }
 
-            self.request.session.update({'people_search': people_form.cleaned_data['people_search']})
-
-            self.request.session.pop('post_search', None)
 
 
         elif post_form.is_valid():
-
             self.extra_context = {'people_form': PeopleSearchForm,
-                                  'post_form': post_form}
+                                  'post_form': post_form,
+                                  'post_search': post_form.cleaned_data['post_search']}
 
-            self.request.session.update({'post_search': post_form.cleaned_data['post_search']})
-
-            self.request.session.pop('people_search', None)
-
+        else:
+            self.extra_context = {
+                'people_form': PeopleSearchForm,
+                'post_form': PostSearchForm,
+            }
         return super(SearchListView, self).get(request, *args, **kwargs)
 
 
-    def get_queryset(self):
 
-        if self.request.session.get('post_search'):
-            self.extra_context.update({'post_template': True})
-            return ['x'] * 50
-        elif self.request.session.get('people_search'):
-            self.extra_context.update({'people_template': True})
-            return ['x'] * 50
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            if self.extra_context.get('post_search'):
+                self.extra_context.update({'post_template': True})
+                return ['x'] * 50
+            elif self.extra_context.get('people_search'):
+                self.extra_context.update({'people_template': True})
+                return ['x'] * 50
         return []
 

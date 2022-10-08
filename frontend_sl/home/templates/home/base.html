@@ -32,6 +32,13 @@
         <a class="nav-link" href="{% url 'post:create_post' %}">Upload</a>
       </li>
 
+        {% if admin_user %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'admin_app:dashboard' %}">Dashboard</a>
+      </li>
+
+        {% endif %}
+
         <li class="nav-item" >
         <a class="nav-link" href="{% url 'registration:logout' %}" style="position: absolute; right: 0">Logout</a>
       </li>

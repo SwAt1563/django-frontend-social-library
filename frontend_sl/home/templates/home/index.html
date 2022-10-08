@@ -108,7 +108,7 @@ Home
                         <hr class="my-0" />
                         <ul class="pagination justify-content-center my-4">
 {% if page_obj.has_previous %}
-    <li class="page-item"><a class="page-link"  href="?page={{ page_obj.previous_page_number }}">« Previous page</a></li>
+    <li class="page-item"><a class="page-link"  href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
 
   {% if page_obj.number > 3 %}
       <li class="page-item" aria-current="page"><a class="page-link" href="?page=1">1</a></li>
@@ -134,7 +134,7 @@ Home
       <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
   {% endif %}
 
-    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next Page »</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
 {% endif %}
 </ul>
                     </nav>

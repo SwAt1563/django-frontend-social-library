@@ -1,5 +1,20 @@
 from django import forms
 
+class AdminLoginForm(forms.Form):
+    username = forms.CharField(max_length=100, required=True, widget=forms.TextInput(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': 'Username',
+        }
+    ))
+
+    password = forms.CharField(max_length=100, required=True, widget=forms.PasswordInput(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': 'Password',
+        }
+    ))
+
 
 def correct_email(email):
     import re

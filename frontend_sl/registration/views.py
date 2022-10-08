@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
-from .forms import LoginForm, RegisterForm, ResetPasswordForm, ResetEmailForm
+from .forms import LoginForm, RegisterForm, ResetPasswordForm, ResetEmailForm, AdminLoginForm
 from datetime import datetime, timedelta
 from django.http import Http404
 import json
@@ -118,3 +118,22 @@ def reset_password_done(request):
 
 def logout(request):
     return HttpResponseRedirect(reverse('registration:login'))
+
+
+
+def admin_login(request):
+    if request.method == 'POST':
+        form = AdminLoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            '''
+                Save the token in the django session
+            '''
+            # its save for use HttpResponseRedirect better than render
+            # cuz don't let the user when make reverse back to login page
+            # to go to post method
+            return HttpResponseRedirect(reverse('admin_app:dashboard'))
+    else:
+        form = AdminLoginForm()
+    return render(request, 'registration/admin_login.html', {'login_form': form})
