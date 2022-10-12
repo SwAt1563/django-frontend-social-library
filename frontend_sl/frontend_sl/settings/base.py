@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'user_profile.apps.UserProfileConfig',
     'post.apps.PostConfig',
     'admin_app.apps.AdminAppConfig',
+    'friend.apps.FriendConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',

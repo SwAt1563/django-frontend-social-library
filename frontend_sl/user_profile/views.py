@@ -3,16 +3,36 @@ from .forms import PersonalImageForm, ProfileEditForm
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import Http404
+from django.http import JsonResponse
 
 # Create your views here.
+api_values = [i for i in range(6)]
+
+
+def load_more(request, user_slug):
+    offset = request.GET.get('offset')
+    offset_int = int(offset)
+    limit = 2
+    # post_obj = Post.objects.all()[offset_int:offset_int+limit]
+    post_obj = list(api_values[offset_int:offset_int+limit])
+    data = {
+        'posts': post_obj
+    }
+
+    return JsonResponse(data=data)
+
 
 
 def profile(request, user_slug):
+    post_obj = api_values[0:5]
+    total_obj = len(api_values)
+    notifications = [i for i in range(5)]
+
     '''
     get user profile information, get the notification if the current user same ,
     get the posts for the user, check follow or unfollow depend on the current user and the relations
     '''
-    return render(request, 'user_profile/profile.html', {'user_slug': user_slug})
+    return render(request, 'user_profile/profile.html', {'user_slug': user_slug, 'posts': post_obj, 'total_obj': total_obj, 'notifications': notifications})
 
 
 '''

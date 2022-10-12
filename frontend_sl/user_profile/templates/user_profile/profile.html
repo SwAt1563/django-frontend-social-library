@@ -7,6 +7,12 @@ Profile
     <link href="{% static 'user_profile/css/profile.css' %}" rel="stylesheet" >
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
+    <style>
+    .not-visible {
+        display: none;
+    }
+</style>
+
 {% endblock %}
 {% block content %}
 <section class="section about-section gray-bg" id="about">
@@ -73,14 +79,16 @@ Profile
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="count-data text-center">
+                                <a class="text-decoration-none count " href="{% url 'friend:followers' user_slug %}">
                                 <h6 class="count h2" data-to="850" data-speed="850">850</h6>
-                                <p class="m-0px font-w-600">Followers</p>
+                                 <p class="m-0px font-w-600">Followers</p> </a>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="count-data text-center">
+                                <a class="text-decoration-none count " href="{% url 'friend:following' user_slug %}">
                                 <h6 class="count h2" data-to="190" data-speed="190">190</h6>
-                                <p class="m-0px font-w-600">Following</p>
+                                <p class="m-0px font-w-600">Following</p></a>
                             </div>
                         </div>
                     </div>
@@ -98,61 +106,73 @@ Profile
         <!-- posts -->
     <div class="col-md-8">
 
-            <div class="panel blog-container">
 
+
+
+
+        <!-- load more -->
+         <div class="panel blog-container">
               <div class="panel-body">
-                <div class="image-wrapper">
-                  <a class="image-wrapper image-zoom cboxElement" href="#">
-                    <img src="{% static 'home/img/file.png' %}" alt="Photo of Blog">
-                    <div class="image-overlay"></div>
-                  </a>
-                </div>
+                  <div class="container">
+                        <div class="content" id="content">
 
+                        {% for post in posts %}
 
-                <h4>Bootstrap 3.0</h4>
-                <small class="text-muted">By <a href="#"><strong> John Doe</strong></a> |  Post on Jan 8, 2013 </small>
+                        <div class="panel blog-container single_content">
+                          <div class="panel-body">
+                            <div class="image-wrapper">
+                              <a class="image-wrapper image-zoom cboxElement" href="#">
+                                <img src="{% static 'home/img/file.png' %}" alt="Photo of Blog">
+                                <div class="image-overlay"></div>
+                              </a>
+                            </div>
 
-                <p class="m-top-sm m-bottom-sm">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
-                </p>
-                <a href="#"><i class="fa fa-angle-double-right"></i> Continue reading</a>
-                <span class="post-like text-muted tooltip-test" data-toggle="tooltip" data-original-title="I like this post!">
-                  <i class="fa fa-star"></i> <span class="like-count">25</span>
-                    <i class="fa fa-comment"></i> <span class="like-count">10</span>
-                </span>
-              </div>
+                            <h4>Bootstrap 3.0</h4>
+                            <small class="text-muted">By <a href="#"><strong> John Doe</strong></a> |  Post on Jan 8, 2013 </small>
+
+                            <p class="m-top-sm m-bottom-sm">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
+                            </p>
+                            <a href="#"><i class="fa fa-angle-double-right"></i> Continue reading</a>
+                            <span class="post-like text-muted tooltip-test" data-toggle="tooltip" data-original-title="I like this post!">
+                              <i class="fa fa-star"></i> <span class="like-count">25</span>
+                                <i class="fa fa-comment"></i> <span class="like-count">10</span>
+                            </span>
+                          </div>
+                        </div>
+
+                             <hr>
+
+                        {% endfor %}
+        </div>
+        <div class="spinner-border text-primary mt-2 not-visible" role="status" id="spinner">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="load-more__btn mt-3" id="load_btn">
+            <button type="button" class="btn btn-success">Load More Post</button>
+        </div>
+        <div class="alert alert-danger mt-2 not-visible" role="alert" id='alert'>
+            No more post to load!!
+        </div>
+    </div>
+
+    {{total_obj|json_script:"json-total"}}
+
             </div>
-        <hr>
-            <div class="panel blog-container">
-              <div class="panel-body">
-                <div class="image-wrapper">
-                  <a class="image-wrapper image-zoom cboxElement" href="#">
-                    <img src="{% static 'home/img/file.png' %}" alt="Photo of Blog">
-                    <div class="image-overlay"></div>
-                  </a>
-                </div>
+         </div>
 
-                <h4>Bootstrap 3.0</h4>
-                <small class="text-muted">By <a href="#"><strong> John Doe</strong></a> |  Post on Jan 8, 2013 </small>
 
-                <p class="m-top-sm m-bottom-sm">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
-                </p>
-                <a href="#"><i class="fa fa-angle-double-right"></i> Continue reading</a>
-                <span class="post-like text-muted tooltip-test" data-toggle="tooltip" data-original-title="I like this post!">
-                  <i class="fa fa-star"></i> <span class="like-count">25</span>
-                    <i class="fa fa-comment"></i> <span class="like-count">10</span>
-                </span>
-              </div>
-            </div>
+
+
     </div>
 
 
-        <div class="col-md-4">
+        <div class="col-md-4 pull-right">
             <h4 class="headline text-muted">
               Notifications
               <span class="line"></span>
             </h4>
+            {% for notification in notifications %}
             <div class="media popular-post">
               <a class="pull-left" href="#">
                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
@@ -165,42 +185,90 @@ Profile
               </div>
 
             </div>
-            <div class="media popular-post">
-              <a class="pull-left" href="#">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
-              </a>
-              <div class="media-body">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </div>
-            </div>
-            <div class="media popular-post">
-              <a class="pull-left" href="#">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
-              </a>
-              <div class="media-body">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </div>
-            </div>
-            <div class="media popular-post">
-              <a class="pull-left" href="#">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
-              </a>
-              <div class="media-body">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </div>
-            </div>
-            <div class="media popular-post">
-              <a class="pull-left" href="#">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
-              </a>
-              <div class="media-body">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </div>
-            </div>
+            {% endfor %}
+
+
+
         </div>
   </div>
 </div>
 
 {% endblock %}
 
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+
+    <!-- https://github.com/anshuUnity/load-more-django -->
+    <script>
+ const loadBtn = document.getElementById('load_btn');
+        const spinner = document.getElementById('spinner');
+        const total = JSON.parse(document.getElementById('json-total').textContent);
+        const alert = document.getElementById('alert');
+
+        function loadmorePost() {
+            var _current_item = $('.single_content').length
+            const content_container = document.getElementById("content");
+            $.ajax({
+                url: '{% url 'user_profile:load_more' user_slug %}',
+                type: 'GET',
+                data: {
+                    'offset': _current_item
+                },
+                beforeSend: function () {
+                    loadBtn.classList.add('not-visible');
+                    spinner.classList.remove('not-visible');
+                },
+                success: function (response) {
+                    const data = response.posts
+                    spinner.classList.add('not-visible')
+                    data.map(post => {
+                        console.log(post);
+                        // for use post attributes in innerHTML: ${post.title}
+                        content_container.innerHTML += `<div class="panel blog-container single_content">
+              <div class="panel-body">
+                <div class="image-wrapper">
+                  <a class="image-wrapper image-zoom cboxElement" href="#">
+                    <img src="{% static 'home/img/file.png' %}" alt="Photo of Blog">
+                    <div class="image-overlay"></div>
+                  </a>
+                </div>
+
+                <h4>Bootstrap 3.0</h4>
+                <small class="text-muted">By <a href="#"><strong> John Doe</strong></a> |  Post on Jan 8, 2013 </small>
+
+                <p class="m-top-sm m-bottom-sm">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
+                </p>
+                <a href="#"><i class="fa fa-angle-double-right"></i> Continue reading</a>
+                <span class="post-like text-muted tooltip-test" data-toggle="tooltip" data-original-title="I like this post!">
+                  <i class="fa fa-star"></i> <span class="like-count">25</span>
+                    <i class="fa fa-comment"></i> <span class="like-count">10</span>
+                </span>
+              </div>
+            </div>
+            <hr>
+            `
+                    })
+
+                    if (_current_item == total) {
+                        alert.classList.remove('not-visible');
+                    } else {
+                        loadBtn.classList.remove('not-visible');
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                },
+            });
+        }
+        loadBtn.addEventListener('click', () => {
+            loadmorePost()
+        });
+    </script>
+
+
+{% endblock %}
 

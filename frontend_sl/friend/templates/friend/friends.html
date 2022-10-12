@@ -1,0 +1,129 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}
+Friends
+{% endblock %}
+{% block css %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{% static 'home/css/search.css' %}" rel="stylesheet" >
+{% endblock %}
+{% block content %}
+
+<div class="container bootstrap snippets bootdey" style="position: relative;">
+    <div class="row">
+
+
+        {% for o in objects %}
+
+
+            <div class="post-list">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="picture">
+                        <img alt="Opt wizard thumbnail" src="{% static 'home/img/Me.png' %}">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h4>
+                        <span  class="username">Deyson Bejarano</span>
+                        <i class="fa fa-star"></i> <span class="like-count">25</span>
+
+                    </h4>
+
+
+                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit lectus, efficitur eu eros vel, luctus aliquet est. Sed sit amet ligula non mauris porta dignissim..</p>
+
+                <a class="btn btn-info btn-download btn-round pull-right makeLoading" href="#">
+                    <i class="fa fa-share"></i> View
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        {% endfor %}
+
+
+
+
+
+
+
+
+
+    </div>
+<!-- Post search-->
+                <div class="col-lg-4 pull-right " style="position: absolute;top: 0;right: 0;">
+                    <!-- Search widget-->
+
+                    <div class="card mb-4">
+                        <div class="card-header">People Search</div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <form method="get" action="">
+                                    {% csrf_token %}
+                                    {{ people_form.errors.people_search }}
+                                    {{ people_form.people_search }}
+                                    <input type="submit" class="btn btn-primary" style="color: black;" value="Go!">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+<!-- Pagination-->
+{% if post_search or people_search %}
+<nav aria-label="Pagination" class="pull-left">
+<hr class="my-4">
+<ul class="pagination justify-content-center my-4">
+{% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link"  href="?page={{ page_obj.previous_page_number }}&{% if post_search %}post_search={{ post_search }}{% else %}people_search={{ people_search }}{% endif %}">Previous</a></li>
+
+  {% if page_obj.number > 3 %}
+      <li class="page-item" aria-current="page"><a class="page-link" href="?page=1&{% if post_search %}post_search={{ post_search }}{% else %}people_search={{ people_search }}{% endif %}">1</a></li>
+    {% if page_obj.number > 4 %}
+       <li class="page-item disabled"><a class="page-link" href="#!"><span>...</span></a></li>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% for num in page_obj.paginator.page_range %}
+  {% if page_obj.number == num %}
+      <li class="page-item active"><a class="page-link" href="?page={{ num }}&{% if post_search %}post_search={{ post_search }}{% else %}people_search={{ people_search }}{% endif %}">{{ num }}</a></li>
+  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <li class="page-item"><a class="page-link" href="?page={{ num }}&{% if post_search %}post_search={{ post_search }}{% else %}people_search={{ people_search }}{% endif %}">{{ num }}</a></li>
+  {% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %}
+  {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+    <li class="page-item disabled"><a class="page-link" href="#!"><span>...</span></a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&{% if post_search %}post_search={{ post_search }}{% else %}people_search={{ people_search }}{% endif %}">{{ page_obj.paginator.num_pages }}</a></li>
+  {% elif page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&{% if post_search %}post_search={{ post_search }}{% else %}people_search={{ people_search }}{% endif %}">{{ page_obj.paginator.num_pages }}</a></li>
+  {% endif %}
+
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&{% if post_search %}post_search={{ post_search }}{% else %}people_search={{ people_search }}{% endif %}">Next</a></li>
+{% endif %}
+</ul>
+ </nav>
+{% endif %}
+
+
+
+
+</div>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

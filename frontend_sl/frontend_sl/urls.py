@@ -11,6 +11,7 @@ urlpatterns = [
     path('au/', include('registration.urls', namespace='registration')),
     path('profile/', include('user_profile.urls', namespace='user_profile')),
     path('post/', include('post.urls', namespace='post')),
+    path('friend/', include('friend.urls', namespace='friend')),
     path('admin/', include('admin_app.urls', namespace='admin_app')),
 
 ]
