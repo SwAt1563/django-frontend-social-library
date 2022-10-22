@@ -20,37 +20,45 @@ Profile
             <div class="container">
 
                 <!-- follow or unfollow -->
+                {% if user_username != profile.user.username %}
                 <div class="pull-right meta">
                       <div class="d-flex justify-content-center">
-                      <a href="{% url 'user_profile:follow' related_user_slug=user_slug %}?next={{ request.path|urlencode }}" class="btn btn-success">Follow</a>
-                    </div>
+
+                          {% if not profile.is_friend %}
+                      <a href="{% url 'user_profile:follow' related_profile_slug=profile.profile_slug %}?next={{ request.path|urlencode }}" class="btn btn-success">Follow</a>
+                    {% else %}
+                        <a href="{% url 'user_profile:unfollow' related_profile_slug=profile.profile_slug %}?next={{ request.path|urlencode }}" class="btn btn-success">Unfollow</a>
+
+                          {% endif %}
+                              </div>
                   </div>
+                {% endif %}
 
                 <div class="row align-items-center flex-row-reverse">
                     <div class="col-lg-6">
                         <div class="about-text go-to">
-                            <h3 class="dark-color">Qutaiba Olayyan</h3>
-                            <h6 class="theme-color lead">Backend developer</h6>
-                            <p>I design and developservices for customers of all sizes, specializing in creating stylish, modern websites, web services and online stores. My passion is to design digital user experiences through the bold interface and meaningful interactions.</p>
+                            <h3 class="dark-color">{{ profile.user.full_name }}</h3>
+                            <h6 class="theme-color lead">{{ profile.status}}</h6>
+                            <p>{{ profile.about_me }}</p>
                             <div class="row about-list">
                                 <div class="col-md-6">
                                     <div class="media">
                                         <label>Address</label>
-                                        <p>Ramallh</p>
+                                        <p>{{ profile.address }}</p>
                                     </div>
                                     <div class="media">
                                         <label>Age</label>
-                                        <p>22 Yr</p>
+                                        <p>{{ profile.age }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="media">
                                         <label>E-mail</label>
-                                        <p>info@domain.com</p>
+                                        <p>{{ profile.user.email }}</p>
                                     </div>
                                     <div class="media">
                                         <label>Phone</label>
-                                        <p>8208853321</p>
+                                        <p>{{ profile.phone }}</p>
                                     </div>
 
                                 </div>
@@ -59,7 +67,7 @@ Profile
                     </div>
                     <div class="col-lg-6">
                         <div class="about-avatar">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="">
+                            <img src="{{ profile.image }}" title="" alt="{{ profile.user.full_name }}">
                         </div>
                     </div>
                 </div>
@@ -67,27 +75,27 @@ Profile
                     <div class="row">
                         <div class="col-6 col-lg-3">
                             <div class="count-data text-center">
-                                <h6 class="count h2" data-to="500" data-speed="500">500</h6>
+                                <h6 class="count h2" data-to="500" data-speed="500">{{ profile.user_stars }}</h6>
                                 <p class="m-0px font-w-600">Stars</p>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="count-data text-center">
-                                <h6 class="count h2" data-to="150" data-speed="150">150</h6>
+                                <h6 class="count h2" data-to="150" data-speed="150">{{ profile.number_of_posts }}</h6>
                                 <p class="m-0px font-w-600">Posts</p>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="count-data text-center">
-                                <a class="text-decoration-none count " href="{% url 'friend:followers' user_slug %}">
-                                <h6 class="count h2" data-to="850" data-speed="850">850</h6>
+                                <a class="text-decoration-none count " href="{% url 'friend:followers' profile_slug %}">
+                                <h6 class="count h2" data-to="850" data-speed="850">{{ profile.number_of_followers }}</h6>
                                  <p class="m-0px font-w-600">Followers</p> </a>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="count-data text-center">
-                                <a class="text-decoration-none count " href="{% url 'friend:following' user_slug %}">
-                                <h6 class="count h2" data-to="190" data-speed="190">190</h6>
+                                <a class="text-decoration-none count " href="{% url 'friend:following' profile_slug %}">
+                                <h6 class="count h2" data-to="190" data-speed="190">{{ profile.number_of_following }}</h6>
                                 <p class="m-0px font-w-600">Following</p></a>
                             </div>
                         </div>
@@ -122,21 +130,21 @@ Profile
                           <div class="panel-body">
                             <div class="image-wrapper">
                               <a class="image-wrapper image-zoom cboxElement" href="#">
-                                <img src="{% static 'home/img/file.png' %}" alt="Photo of Blog">
+                                <img src="{% static 'home/img/file.png' %}" alt="{{ post.title }}">
                                 <div class="image-overlay"></div>
                               </a>
                             </div>
 
-                            <h4>Bootstrap 3.0</h4>
-                            <small class="text-muted">By <a href="#"><strong> John Doe</strong></a> |  Post on Jan 8, 2013 </small>
+                            <h4>{{ post.title }}</h4>
+                            <small class="text-muted">By <a href="#"><strong> {{ post.posted_by }}</strong></a> |  Post on {{ post.created }} </small>
 
                             <p class="m-top-sm m-bottom-sm">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
+                              {{ post.description }}
                             </p>
-                            <a href="#"><i class="fa fa-angle-double-right"></i> Continue reading</a>
+                            <a href="{% url 'post:index' post.slug %}"><i class="fa fa-angle-double-right"></i> Continue reading</a>
                             <span class="post-like text-muted tooltip-test" data-toggle="tooltip" data-original-title="I like this post!">
-                              <i class="fa fa-star"></i> <span class="like-count">25</span>
-                                <i class="fa fa-comment"></i> <span class="like-count">10</span>
+                              <i class="fa fa-star"></i> <span class="like-count">{{ post.total_stars }}</span>
+                                <i class="fa fa-comment"></i> <span class="like-count">{{ post.total_comments }}</span>
                             </span>
                           </div>
                         </div>
@@ -172,15 +180,15 @@ Profile
               Notifications
               <span class="line"></span>
             </h4>
-            {% for notification in notifications %}
+            {% for notification in profile.notifications %}
             <div class="media popular-post">
-              <a class="pull-left" href="#">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Popular Post">
+              <a class="pull-left" href="{% url 'user_profile:profile'  notification.profile_slug %}">
+                <img src="{{ notification.image }}" alt="Popular Post">
               </a>
 
               <div class="media-body">
                   <a href="#" class="alert-link text-decoration-none">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                {{ notification.content }}
                       </a>
               </div>
 
@@ -212,7 +220,7 @@ Profile
             var _current_item = $('.single_content').length
             const content_container = document.getElementById("content");
             $.ajax({
-                url: '{% url 'user_profile:load_more' user_slug %}',
+                url: '{% url 'user_profile:load_more' profile_slug %}',
                 type: 'GET',
                 data: {
                     'offset': _current_item
@@ -231,21 +239,24 @@ Profile
               <div class="panel-body">
                 <div class="image-wrapper">
                   <a class="image-wrapper image-zoom cboxElement" href="#">
-                    <img src="{% static 'home/img/file.png' %}" alt="Photo of Blog">
+                    <img src="{% static 'home/img/file.png' %}" alt="${post.title}">
                     <div class="image-overlay"></div>
                   </a>
                 </div>
 
-                <h4>Bootstrap 3.0</h4>
-                <small class="text-muted">By <a href="#"><strong> John Doe</strong></a> |  Post on Jan 8, 2013 </small>
+                <h4>${post.title}</h4>
+                <small class="text-muted">By <a href="#"><strong> ${post.posted_by}</strong></a> |  Post on ${post.created} </small>
 
                 <p class="m-top-sm m-bottom-sm">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
+
+                  ${post.description}
                 </p>
-                <a href="#"><i class="fa fa-angle-double-right"></i> Continue reading</a>
+
+                {# be careful here you should send the url of the posts to make it as refrence instead of using '/post/ps/' #}
+                <a href="/post/ps/${post.slug}"><i class="fa fa-angle-double-right"></i> Continue reading</a>
                 <span class="post-like text-muted tooltip-test" data-toggle="tooltip" data-original-title="I like this post!">
-                  <i class="fa fa-star"></i> <span class="like-count">25</span>
-                    <i class="fa fa-comment"></i> <span class="like-count">10</span>
+                  <i class="fa fa-star"></i> <span class="like-count">${post.total_stars}</span>
+                    <i class="fa fa-comment"></i> <span class="like-count">${post.total_comments}</span>
                 </span>
               </div>
             </div>

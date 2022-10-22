@@ -19,7 +19,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False) in ('True', 1, 'true')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', 'fronted-sl']
 
 
 # Application definition
@@ -31,6 +31,9 @@ INSTALLED_APPS = [
     'post.apps.PostConfig',
     'admin_app.apps.AdminAppConfig',
     'friend.apps.FriendConfig',
+
+    # celery
+    'django_celery_beat',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -128,4 +131,6 @@ REDIS_PORT = os.environ.get('REDIS_PORT')
 REDIS_DB = os.environ.get('REDIS_DB')
 
 
-#AUTH_USER_MODEL = 'account.UserAccount'
+
+CELERY_TIMEZONE = 'Asia/Jerusalem'
+

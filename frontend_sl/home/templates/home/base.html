@@ -23,16 +23,16 @@
     <ul class="navbar-nav mr-auto">
 
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'user_profile:profile' user_slug %}">Profile</a>
+        <a class="nav-link" href="{% url 'user_profile:profile' profile_slug %}">Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'user_profile:edit_profile' user_slug %}">Settings</a>
+        <a class="nav-link" href="{% url 'user_profile:edit_profile' profile_slug %}">Settings</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'post:create_post' %}">Upload</a>
       </li>
 
-        {% if admin_user %}
+        {% if is_admin %}
         <li class="nav-item">
         <a class="nav-link" href="{% url 'admin_app:dashboard' %}">Dashboard</a>
       </li>

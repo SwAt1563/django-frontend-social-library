@@ -14,27 +14,27 @@ Friends
     <div class="row">
 
 
-        {% for o in objects %}
+        {% for profile in objects %}
 
 
             <div class="post-list">
             <div class="row">
                 <div class="col-sm-2">
                     <div class="picture">
-                        <img alt="Opt wizard thumbnail" src="{% static 'home/img/Me.png' %}">
+                        <img alt="Opt wizard thumbnail" src="{{ profile.image }}">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <h4>
-                        <span  class="username">Deyson Bejarano</span>
-                        <i class="fa fa-star"></i> <span class="like-count">25</span>
+                        <span  class="username">{{ profile.user.full_name }}</span>
+                        <i class="fa fa-star"></i> <span class="like-count">{{ profile.user_stars }}</span>
 
                     </h4>
 
 
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit lectus, efficitur eu eros vel, luctus aliquet est. Sed sit amet ligula non mauris porta dignissim..</p>
+                    <p class="description">{{ profile.about_me }}</p>
 
-                <a class="btn btn-info btn-download btn-round pull-right makeLoading" href="#">
+                <a class="btn btn-info btn-download btn-round pull-right makeLoading" href="{% url 'user_profile:profile' profile.profile_slug %}">
                     <i class="fa fa-share"></i> View
                     </a>
                 </div>

@@ -4,12 +4,13 @@ version: '3.5'
 
 networks:
   fronted_net:
-    driver: bridge
+    external: true
+    name: bridge_between_frontend_backend
 
 
 services:
   frontend_sl:
-    container_name: frontend_sl
+    container_name: frontend-sl
     build:
       context: ./frontend_sl # but the source path that we will search about docker image from it
       dockerfile: development.Dockerfile
@@ -27,6 +28,8 @@ services:
     networks:
       - fronted_net
 
+
+
   redis:
     container_name: redis-server
     image: redis:alpine
@@ -35,6 +38,7 @@ services:
       - '6379:6379'
     networks:
       - fronted_net
+
 
   celery:
     restart: always
@@ -54,6 +58,7 @@ services:
       - frontend_sl
     networks:
       - fronted_net
+
 
 volumes:
   static_vol:

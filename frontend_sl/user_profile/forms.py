@@ -67,7 +67,7 @@ class ProfileEditForm(forms.Form):
 
         }
     ))
-    about_me = forms.CharField(required=True, max_length=50, widget=forms.Textarea(
+    about_me = forms.CharField(required=True, max_length=5000, widget=forms.Textarea(
         attrs={
             'class': 'form-control',
             'placeholder': 'Your answer',

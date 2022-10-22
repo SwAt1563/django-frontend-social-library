@@ -2,11 +2,10 @@ from django.shortcuts import render, HttpResponseRedirect, reverse
 from .forms import PeopleSearchForm, PostSearchForm
 from django.views.generic import ListView
 from django.http import Http404
-# Create your views here.
+from .api.home_api import get_all_posts, get_top_users
+from .api.search_api import search_posts, search_users
 
-def index(request):
-    user_slug = 'x'
-    return render(request, 'home/index.html', {'user_slug': user_slug})
+# Create your views here.
 
 
 class HomeView(ListView):
@@ -14,9 +13,11 @@ class HomeView(ListView):
     context_object_name = 'posts'  # name of posts parameter that we can access in template
     paginate_by = 4
 
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['user_slug'] = 'x'
+        context['profile_slug'] = self.request.session.get('profile_slug')
+        context['is_admin'] = self.request.session.get('is_admin')
         return context
 
     def get(self, request, *args, **kwargs):
@@ -25,17 +26,30 @@ class HomeView(ListView):
             'people_search_form': PeopleSearchForm,
             'post_search_form': PostSearchForm,
         }
+
+        try:
+            response_status, data = get_top_users(self.request)
+        except Http404:
+            raise Http404
+
+        if response_status == 200:
+            self.extra_context.update({'top_users': data})
+
         return super(HomeView, self).get(request, *args, **kwargs)
 
 
-    # what we want to put in 'list_objects'
     def get_queryset(self):
-        if self.request.method == 'POST':
-                return []
-        '''
-         get files from api
-        '''
-        return ['x'] * 50
+        if self.request.method == 'GET':
+
+            try:
+                response_status, data = get_all_posts(self.request)
+            except Http404:
+                raise Http404
+
+            if response_status == 200:
+                return data
+
+            return []
 
 
 class SearchListView(ListView):
@@ -45,7 +59,8 @@ class SearchListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(SearchListView, self).get_context_data(**kwargs)
-        context['user_slug'] = 'x'
+        context['profile_slug'] = self.request.session.get('profile_slug')
+        context['is_admin'] = self.request.session.get('is_admin')
         return context
 
     def get(self, request, *args, **kwargs):
@@ -81,9 +96,33 @@ class SearchListView(ListView):
         if self.request.method == 'GET':
             if self.extra_context.get('post_search'):
                 self.extra_context.update({'post_template': True})
-                return ['x'] * 50
+
+                payload = dict(
+                    filter=self.extra_context.get('post_search'),
+                )
+                try:
+                    response_status, data = search_posts(self.request, payload=payload)
+                except Http404:
+                    raise Http404
+
+                if response_status == 200:
+                    return data
+
+                return []
             elif self.extra_context.get('people_search'):
                 self.extra_context.update({'people_template': True})
-                return ['x'] * 50
-        return []
+                payload = dict(
+                    filter=self.extra_context.get('people_search'),
+                    user_id=self.request.session.get('user_id'),
+                )
+                try:
+                    response_status, data = search_users(self.request, payload=payload)
+                except Http404:
+                    raise Http404
+
+                if response_status == 200:
+                    return data
+
+                return []
+            return []
 

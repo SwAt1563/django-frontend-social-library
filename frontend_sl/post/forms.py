@@ -45,10 +45,15 @@ class PostForm(PostUpdateForm):
             self.errors['uploaded_file'] = self.error_class(['File type not supported'])
             raise forms.ValidationError('File type not supported')
         elif check_pdf:
-            self.cleaned_data.update({'pdf': file})
+            # file.file = io.BytesIO
+            # getvalue() : to convert to bytes
+            # source: https://kyle.gorak.us/2015/12/28/bytes-image-upload/
+            # ('filename', fileobj, 'content_type', custom_headers)
+            self.cleaned_data.update({'pdf': (file.name, file.file.getvalue(), file.content_type)})
         elif check_image:
-            self.cleaned_data.update({'image': file})
+            self.cleaned_data.update({'image': (file.name, file.file.getvalue(), file.content_type)})
 
+        file.close()
         return self.cleaned_data
 
 

@@ -21,7 +21,7 @@ Dashboard
                     <div class="float-right">
                         <i class="fa fa-archive text-primary h4 ml-3"></i>
                     </div>
-                    <h5 class="font-size-20 mt-0 pt-1">24</h5>
+                    <h5 class="font-size-20 mt-0 pt-1">{{ status.total_posts }}</h5>
                     <p class="text-muted mb-0">Total Posts</p>
                 </div>
             </div>
@@ -32,7 +32,7 @@ Dashboard
                     <div class="float-right">
                         <i class="fa fa-th text-primary h4 ml-3"></i>
                     </div>
-                    <h5 class="font-size-20 mt-0 pt-1">18</h5>
+                    <h5 class="font-size-20 mt-0 pt-1">{{ status.completed_posts }}</h5>
                     <p class="text-muted mb-0">Completed Posts</p>
                 </div>
             </div>
@@ -43,7 +43,7 @@ Dashboard
                     <div class="float-right">
                         <i class="fa fa-file text-primary h4 ml-3"></i>
                     </div>
-                    <h5 class="font-size-20 mt-0 pt-1">06</h5>
+                    <h5 class="font-size-20 mt-0 pt-1">{{ status.pending_posts }}</h5>
                     <p class="text-muted mb-0">Pending Posts</p>
                 </div>
             </div>
@@ -89,44 +89,48 @@ Dashboard
                                 </tr>
                             </thead>
                             <tbody>
+
+                            {% for post in objects %}
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>New admin Design</td>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ post.title }}</td>
                                     <td>
-                                         <a href="#" class="text-decoration-none text-danger " data-toggle="tooltip" data-placement="top" title="" data-original-title="Roger Drake">
-                                                File.pdf
+                                        <!-- you should cut the file name -->
+                                         <a href="{{ post.file }}" class="text-decoration-none text-danger " data-toggle="tooltip" data-placement="top" title="" data-original-title="Roger Drake">
+                                                {{ post.file }}
                                             </a>
 
                                     </td>
-                                    <td>02/5/2019</td>
+                                    <td>{{ post.created }}</td>
                                     <td>
-                                        <span class="{% if completed %}text-success{% else %}text-warning{% endif %} font-12"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
-                                        {% if completed %}Completed{% else %}Pending{% endif %}
+                                        <span class="{% if post.status == 'COMPLETED' %}text-success{% else %}text-warning{% endif %} font-12"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
+                                        {% if post.status == 'COMPLETED' %}Completed{% else %}Pending{% endif %}
                                         </span>
                                     </td>
                                     <td>
 
-                                            <a href="#" class="text-decoration-none text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Roger Drake">
-                                                Qutaiba Olayyan
+                                            <a href="{% url 'user_profile:profile' post.profile_slug %}" class="text-decoration-none text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Roger Drake">
+                                                {{ post.posted_by }}
                                             </a>
 
 
                                     </td>
                                     <td>
                                         <a href="mailto:swat.ar123@gmail.com" class="user-email text-decoration-none">
-                                            swat.ar123@gmail.com
+                                            {{ post.user_email }}
                                         </a>
                                     </td>
 
                                     <td>
                                         <div class="action">
 
-                                            <a href="{% url 'admin_app:add_post' this_post_slug %}?next={{ request.get_full_path|urlencode }}" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-plus-square h5 m-0"></i></a>
-                                            <a href="{% url 'admin_app:delete_post' this_post_slug %}?next={{ request.get_full_path|urlencode }}" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                            <a href="{% url 'admin_app:add_post' post.slug %}?next={{ request.get_full_path|urlencode }}" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-plus-square h5 m-0"></i></a>
+                                            <a href="{% url 'admin_app:delete_post' post.slug %}?next={{ request.get_full_path|urlencode }}" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
                                         </div>
                                     </td>
                                 </tr>
 
+                            {% endfor %}
 
 
                             </tbody>
