@@ -24,43 +24,13 @@ services:
       - "8000:8000"
     volumes:
       - static_vol:/app/static # /app: workdir that we created in docker image and move our files in it
-      - media_vol:/app/static
+      - media_vol:/app/media
     networks:
       - fronted_net
 
 
-
-  redis:
-    container_name: redis-server
-    image: redis:alpine
-    restart: always
-    ports:
-      - '6379:6379'
-    networks:
-      - fronted_net
-
-
-  celery:
-    restart: always
-    build:
-      context: ./frontend_sl
-      dockerfile: development.Dockerfile
-    command: celery -A frontend_sl worker -l info
-    volumes:
-      - celery:/app
-    container_name: celery
-    env_file:
-      - .env
-    environment:
-      - DJANGO_SETTINGS_MODULE=frontend_sl.settings.development
-    depends_on:
-      - redis
-      - frontend_sl
-    networks:
-      - fronted_net
 
 
 volumes:
   static_vol:
   media_vol:
-  celery:

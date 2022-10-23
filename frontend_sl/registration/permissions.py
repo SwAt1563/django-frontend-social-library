@@ -7,6 +7,9 @@ from django.conf import settings
 from django.urls.exceptions import Http404
 import json
 
+# this is not the best way for update the token
+# we should create automatic update each 14m cuz the token finish each 15m
+# not before upload the pages
 HOST = settings.API_URL
 def check_token_expired(request, *args, **kwargs):
 
@@ -14,6 +17,11 @@ def check_token_expired(request, *args, **kwargs):
         response = session.post(f'{HOST}/account/check_token/', kwargs['payload'])
     except requests.exceptions.ConnectionError:
         raise Http404
+
+
+
+
+
 
     # token not expired yet
     if response.status_code == 200:

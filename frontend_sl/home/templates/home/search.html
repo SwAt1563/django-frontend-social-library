@@ -1,7 +1,9 @@
 {% extends 'home/base.html' %}
 {% load static %}
 
+{% load images_src %}
 {% block title %}
+
 Search
 {% endblock %}
 {% block css %}
@@ -27,7 +29,7 @@ Search
             <div class="row">
                 <div class="col-sm-2">
                     <div class="picture">
-                        <img  src="{{ profile.image }}" alt="{{ profile.user.full_name }}">
+                        <img  src="{{ profile.image|localhost }}" alt="{{ profile.user.full_name }}">
                     </div>
                 </div>
                 <div class="col-sm-6">

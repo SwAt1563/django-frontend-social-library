@@ -1,6 +1,6 @@
 {% extends 'home/base.html' %}
 {% load static %}
-
+{% load images_src %}
 {% block title %}
 Edit Profile
 {% endblock %}
@@ -20,7 +20,7 @@ Edit Profile
 
                                     <!-- user image -->
                                     {% if user_profile_img %}
-                                    <img id="pimage" class="img-rounded img-responsive" src="{{ user_profile_img }}" alt="">
+                                    <img id="pimage" class="img-rounded img-responsive" src="{{ user_profile_img|localhost }}" alt="">
 
                                     {% else %}
                                    <img id="pimage" class="img-rounded img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">

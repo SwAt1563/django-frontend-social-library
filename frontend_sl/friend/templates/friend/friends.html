@@ -1,6 +1,6 @@
 {% extends 'home/base.html' %}
 {% load static %}
-
+{% load images_src %}
 {% block title %}
 Friends
 {% endblock %}
@@ -21,7 +21,7 @@ Friends
             <div class="row">
                 <div class="col-sm-2">
                     <div class="picture">
-                        <img alt="Opt wizard thumbnail" src="{{ profile.image }}">
+                        <img alt="Opt wizard thumbnail" src="{{ profile.image|localhost }}">
                     </div>
                 </div>
                 <div class="col-sm-6">

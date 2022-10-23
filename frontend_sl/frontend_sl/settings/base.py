@@ -17,9 +17,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False) in ('True', 1, 'true')
+DEBUG = os.environ.get('DEBUG', False) in ('True', 1, 'true', True)
 
-ALLOWED_HOSTS = ['localhost', 'fronted-sl']
+
 
 
 # Application definition
@@ -32,8 +32,6 @@ INSTALLED_APPS = [
     'admin_app.apps.AdminAppConfig',
     'friend.apps.FriendConfig',
 
-    # celery
-    'django_celery_beat',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -62,6 +60,8 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+
+
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -97,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -108,29 +108,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
 
-STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Connect Celery with redis url
-# if you want to use python environment then uncomment these lines
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
-
-REDIS_HOST = os.environ.get('REDIS_HOST')
-REDIS_PORT = os.environ.get('REDIS_PORT')
-REDIS_DB = os.environ.get('REDIS_DB')
-
-
-
-CELERY_TIMEZONE = 'Asia/Jerusalem'
 

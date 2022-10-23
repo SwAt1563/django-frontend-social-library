@@ -1,13 +1,11 @@
 """frontend_sl URL Configuration
 """
-from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('home.urls', namespace='home')),
-    # path('admin/', admin.site.urls),
     path('au/', include('registration.urls', namespace='registration')),
     path('profile/', include('user_profile.urls', namespace='user_profile')),
     path('post/', include('post.urls', namespace='post')),

@@ -1,5 +1,7 @@
 {% extends 'home/base.html' %}
 {% load static %}
+{% load images_src %}
+{% load date_format %}
 {% block title %}
 Profile
 {% endblock %}
@@ -67,7 +69,8 @@ Profile
                     </div>
                     <div class="col-lg-6">
                         <div class="about-avatar">
-                            <img src="{{ profile.image }}" title="" alt="{{ profile.user.full_name }}">
+                            <img src="{{ profile.image|localhost }}" title="" alt="{{ profile.user.full_name }}" style="border-radius: 50%;
+height: 250px;width: 250px;">
                         </div>
                     </div>
                 </div>
@@ -87,14 +90,14 @@ Profile
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="count-data text-center">
-                                <a class="text-decoration-none count " href="{% url 'friend:followers' profile_slug %}">
+                                <a class="text-decoration-none count " href="{% url 'friend:followers' profile.profile_slug %}">
                                 <h6 class="count h2" data-to="850" data-speed="850">{{ profile.number_of_followers }}</h6>
                                  <p class="m-0px font-w-600">Followers</p> </a>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="count-data text-center">
-                                <a class="text-decoration-none count " href="{% url 'friend:following' profile_slug %}">
+                                <a class="text-decoration-none count " href="{% url 'friend:following' profile.profile_slug %}">
                                 <h6 class="count h2" data-to="190" data-speed="190">{{ profile.number_of_following }}</h6>
                                 <p class="m-0px font-w-600">Following</p></a>
                             </div>
@@ -136,7 +139,7 @@ Profile
                             </div>
 
                             <h4>{{ post.title }}</h4>
-                            <small class="text-muted">By <a href="#"><strong> {{ post.posted_by }}</strong></a> |  Post on {{ post.created }} </small>
+                            <small class="text-muted">By <a href="#"><strong> {{ post.posted_by }}</strong></a> |  Post on {{ post.created|d_m_y }} </small>
 
                             <p class="m-top-sm m-bottom-sm">
                               {{ post.description }}
@@ -183,7 +186,7 @@ Profile
             {% for notification in profile.notifications %}
             <div class="media popular-post">
               <a class="pull-left" href="{% url 'user_profile:profile'  notification.profile_slug %}">
-                <img src="{{ notification.image }}" alt="Popular Post">
+                <img src="{{ notification.image|localhost }}" alt="Popular Post">
               </a>
 
               <div class="media-body">
@@ -233,7 +236,7 @@ Profile
                     const data = response.posts
                     spinner.classList.add('not-visible')
                     data.map(post => {
-                        console.log(post);
+
                         // for use post attributes in innerHTML: ${post.title}
                         content_container.innerHTML += `<div class="panel blog-container single_content">
               <div class="panel-body">

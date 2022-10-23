@@ -1,6 +1,7 @@
 {% extends 'home/base.html' %}
 {% load static %}
-
+{% load images_src %}
+{% load date_format %}
 {% block title %}
 Home
 {% endblock %}
@@ -23,7 +24,7 @@ Home
 
                     <div class="col-lg-4">
                         <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3" src="{{ profile.image }}" alt="{{ profile.user.full_name }}" />
+                            <img class="img-fluid rounded-circle mb-3" src="{{ profile.image|localhost }}" alt="{{ profile.user.full_name }}" />
                             <a href="{% url 'user_profile:profile' profile.profile_slug %}" class="text-decoration-none"><h5>{{ profile.user.full_name }}</h5></a>
                             <p class="font-weight-light mb-0">{{ profile.about_me }}</p>
                         </div>
@@ -56,7 +57,7 @@ Home
                             <div class="card mb-4">
                                 <img class="card-img-top" src="{% static 'home/img/file.png' %}" alt="{{ post.title }}" />
                                 <div class="card-body">
-                                    <div class="small text-muted">{{ post.created }}</div>
+                                    <div class="small text-muted">Posted since {{ post.created|d_m_y }}</div>
                                     <h2 class="card-title h4">{{ post.title }}</h2>
                                     <p class="card-text">{{ post.description }}</p>
                                     <a class="btn btn-primary" href="{% url 'post:index' post.slug %}">Read more →</a>

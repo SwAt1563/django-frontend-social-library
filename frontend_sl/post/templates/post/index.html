@@ -1,5 +1,7 @@
 {% extends 'home/base.html' %}
 {% load static %}
+{% load images_src %}
+{% load date_format %}
 
 {% block title %}
 Post
@@ -16,7 +18,7 @@ Post
             <div class="panel panel-white post panel-shadow">
                 <div class="post-heading">
                     <div class="pull-left image">
-                        <img src="{{ post.user_image }}" class="img-circle avatar" alt="{{ post.posted_by }}">
+                        <img src="{{ post.user_image|localhost }}" class="img-circle avatar" alt="{{ post.posted_by }}">
                     </div>
                     <div class="pull-right meta">
                         <div class="stats">
@@ -52,7 +54,7 @@ Post
 
 
                         </div>
-                        <h6 class="text-muted time">Posted on {{ post.created }}</h6>
+                        <h6 class="text-muted time">Posted on {{ post.created|d_m_y }}</h6>
                     </div>
                 </div>
                 <div class="post-image">
@@ -87,12 +89,12 @@ Post
                             {% for comment in post.comments %}
                                 <li class="comment">
                                     <a class="pull-left" href="{% url 'user_profile:profile' comment.profile_slug %}">
-                                        <img class="avatar" src="{{ comment.user_image }}" alt="{{comment.user_name}}">
+                                        <img class="avatar" src="{{ comment.user_image|localhost }}" alt="{{comment.user_name}}">
                                     </a>
                                     <div class="comment-body">
                                         <div class="comment-heading">
                                             <h4 class="user">{{ comment.user_name }}</h4>
-                                            <h5 class="time">{{ comment.created }}</h5>
+                                            <h5 class="time">{{ comment.created|d_m_y }}</h5>
                                         </div>
                                         <p>{{ comment.comment }}</p>
                                     </div>

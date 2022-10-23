@@ -1,5 +1,9 @@
 {% extends 'home/base.html' %}
 {% load static %}
+{% load date_format %}
+{% load images_src %}
+{% load files %}
+
 {% block title %}
 Dashboard
 {% endblock %}
@@ -96,12 +100,12 @@ Dashboard
                                     <td>{{ post.title }}</td>
                                     <td>
                                         <!-- you should cut the file name -->
-                                         <a href="{{ post.file }}" class="text-decoration-none text-danger " data-toggle="tooltip" data-placement="top" title="" data-original-title="Roger Drake">
-                                                {{ post.file }}
+                                         <a href="{{ post.file|localhost }}" class="text-decoration-none text-danger " data-toggle="tooltip" data-placement="top" title="" data-original-title="Roger Drake">
+                                                {{ post.file|file_name }}
                                             </a>
 
                                     </td>
-                                    <td>{{ post.created }}</td>
+                                    <td>{{ post.created|d_m_y }}</td>
                                     <td>
                                         <span class="{% if post.status == 'COMPLETED' %}text-success{% else %}text-warning{% endif %} font-12"><i class="mdi mdi-checkbox-blank-circle mr-1"></i>
                                         {% if post.status == 'COMPLETED' %}Completed{% else %}Pending{% endif %}
