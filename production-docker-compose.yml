@@ -1,0 +1,70 @@
+version: '3.5'
+
+networks:
+  frontend_net:
+    driver: bridge
+
+services:
+
+  db:
+    container_name: frontend_sl_db
+    image: postgres:15.0-alpine
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+
+    restart: always
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - frontend_net
+
+  app:
+    container_name: backend-sl
+    command: gunicorn frontend_sl.wsgi:application --bind 0.0.0.0:8000
+    build:
+      context: ./frontend_sl #
+      dockerfile: production.Dockerfile
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=frontend_sl.settings.production
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./frontend_sl/:/home/app/web/
+      - static_vol:/home/app/web/staticfiles
+      - media_vol:/home/app/web/mediafiles
+    networks:
+      - frontend_net
+    depends_on:
+      - db
+    expose:
+      - 8000
+
+  nginx:
+    container_name: frontend_sl_nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    networks:
+      - frontend_net
+    volumes:
+      - static_vol:/home/app/web/staticfiles
+      - media_vol:/home/app/web/mediafiles
+    depends_on:
+      - app
+
+
+
+volumes:
+  static_vol:
+  media_vol:
+  postgres_data:

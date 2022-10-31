@@ -1,6 +1,10 @@
 from .base import *
 
-ALLOWED_HOSTS = ['localhost', 'fronted-sl']
+ALLOWED_HOSTS = ['localhost', 'fronted-sl'] + list(os.environ.get("DJANGO_ALLOWED_HOSTS").split(" "))
+
+#CSRF
+# to support https domains
+CSRF_TRUSTED_ORIGINS = ['https://*.social-library-1563.ml']
 
 # Database
 
@@ -23,7 +27,7 @@ DATABASES = {
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, '../mediafiles')
+STATIC_ROOT = os.path.join(BASE_DIR, '../staticfiles')
 
-API_URL = 'http://backend-sl:6123'
+API_URL = 'https://social-library-api-1563.ml'
