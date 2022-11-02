@@ -186,7 +186,7 @@ height: 250px;width: 250px;">
             {% for notification in profile.notifications %}
             <div class="media popular-post">
               <a class="pull-left" href="{% url 'user_profile:profile'  notification.profile_slug %}">
-                <img src="{{ notification.image|localhost }}" alt="Popular Post">
+                <img src="{{ notification.image|localhost }}" alt="">
               </a>
 
               <div class="media-body">

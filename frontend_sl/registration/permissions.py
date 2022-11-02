@@ -20,9 +20,6 @@ def check_token_expired(request, *args, **kwargs):
 
 
 
-
-
-
     # token not expired yet
     if response.status_code == 200:
         data = json.loads(response.content)
