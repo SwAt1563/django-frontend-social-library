@@ -1,6 +1,11 @@
 # django-frontend-social-library
 ## Summary
  This repository for create [Social Library Application](https://social-library-1563.ml/) by using Django then deploy it on AWS by Docker and Nginx
+ 
+
+https://user-images.githubusercontent.com/79475839/199613069-d7db0eb4-740c-4a3e-8264-d5494a62a482.mp4
+
+
 ## Features
 - Django 4.0
 - Python 3.8-3.9
